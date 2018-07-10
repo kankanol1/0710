@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格查询</title>
+
+    <style>
+
+        /********************************  CSS样式重置  *****************************************/
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: black;
+            font-size: 15px;
+        }
+        .clearfix:after{
+            content: '.';
+            visibility: hidden;
+            height: 0;
+            display: block;
+            clear: both;
+        }
+        .clearfix:after{
+            *zoom: 1;
+        }
+
+        /********************************  CSS默认样式  *********************************************/
+
+
+        .center{
+            width: 718px;
+            margin-left: 65px;
+        }
+        #big{
+            background-color: white;
+            margin: 10px auto;
+            width: 872px;
+            position: relative;
+            height: 700px;
+            overflow: hidden;
+        }
+
+
+        #top{
+            border: 1px solid #f4a460;
+            width: 698px;
+            margin-top: 50px;
+            margin-left: 65px;
+            padding: 10px;
+        }
+        #top div{
+            height: 40px;
+            line-height: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        #top #add{
+            height: 20px;
+            width: 40px;
+            font-size: 12px;
+        }
+        #top div p{
+            float: left;
+            line-height: 40px;
+        }
+        #top div input{
+            float: left;
+            margin: 10px auto;
+            width: 150px;
+        }
+        #top div #sex{
+            float: left;
+            margin: 10px auto;
+            width: 150px;
+            height: 22px;
+        }
+        #middle{
+            position: relative;
+            overflow: hidden;
+            line-height: 43px;
+            height: 43px;
+        }
+        #middle p,#middle select,#middle input{
+            float: left;
+            line-height: 43px;
+        }
+        #middle p{
+            margin-right: 12px;
+        }
+        #middle input{
+            margin-left: 5px;
+            height: 20px;
+            margin-top: 13px;
+        }
+        #middle select{
+            margin-top: 13px;
+            margin-right: 5px;
+        }
+        #bottom{
+            width: 718px;
+            background-color: #28a5c4;
+        }
+        #bottom table{
+            border-collapse: collapse;
+            width: 718px;
+            background-color: white;
+            text-align: center;
+        }
+        #bottom table thead tr{
+            height: 42px;
+        }
+        #bottom table tbody tr{
+            height: 25px;
+        }
+        #bottom table tbody tr:hover{
+            background-color: #f50c3a;
+        }
+        tbody tr:nth-child(odd){
+            background-color: #28a5c4;
+        }
+        tbody tr:nth-child(even){
+            background-color: #53ffec;
+        }
+        .selector{
+            background-color: #f50c3a;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oAdd = document.getElementById("add");
+            var oTab = document.getElementById("tab");
+            var str = "";
+            var oTBody = oTab.querySelector("tbody");
+            var oItem = oTBody.children;
+            var arr = [];
+            var allBtn = document.getElementById("all-selector");
+            var allDelete = document.getElementById("all-delete");
+            var oNumber = document.getElementById("number");
+            var oAge = document.getElementById("age");
+            var order = document.getElementById("order");
+
+            //添加数据事件
+            oAdd.onclick = function(){
+                //重新排序
+                //againOrder();
+                createElement(this);//创建表格行元素函数
+                /******************清空input的text内容****************/
+                this.parentNode.children[2].children[1].value = "";
+                checkedClick();//checkbox 单击事件
+
+            };
+            //根据要求排序
+            order.onclick =function(){
+                //把tbody中的tr放入arr数组中
+                for(var i=0;i<oItem.length;i++){
+                    arr.push(oItem[i]);
+                }
+                if(oNumber.value ==="编号")
+                {
+                    if(oAge.value ==="降序"){
+                        arr.sort(function(a,b){
+                            return parseInt(a.children[1].innerHTML) - parseInt(b.children[1].innerHTML);//隐式类型转换
+                        });
+                        oTBody.innerHTML = "";
+                        for(var i=0;i<arr.length;i++){
+                            oTBody.appendChild(arr[i]);
+                        }
+                    }else {
+                        arr.sort(function(a,b){
+                            return parseInt(b.children[1].innerHTML)- parseInt(a.children[1].innerHTML);//隐式类型转换
+                        });
+                        oTBody.innerHTML = "";
+                        for(var i=0;i<arr.length;i++){
+                            oTBody.appendChild(arr[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    if(oAge.value ==="降序"){
+                        arr.sort(function(a,b){
+                            return parseInt(a.children[4].innerHTML) - parseInt(b.children[4].innerHTML);//隐式类型转换
+                        });
+                    }else {
+                        arr.sort(function(a,b){
+                            return parseInt(b.children[4].innerHTML)- parseInt(a.children[4].innerHTML);//隐式类型转换
+                        });
+                    }
+                    oTBody.innerHTML = "";
+                    for(var i=0;i<arr.length;i++){
+                        oTBody.appendChild(arr[i]);
+                    }
+                }
+                checkedClick();//checkbox 单击事件
+            };
+            //全选及背景设置
+            allBtn.onclick =function(){
+                if(allBtn.checked){
+                    allBtn.checked = true;
+                    for(var i=0;i<oItem.length;i++){
+                        oItem[i].firstElementChild.firstElementChild.checked = true;
+                        oItem[i].style.background = "#f50c3a";
+                    }
+                }else{
+                    allBtn.checked = false;
+                    for(var i=0;i<oItem.length;i++){
+                        oItem[i].firstElementChild.firstElementChild.checked = false ;
+                        oItem[i].style.background = "";
+                    }
+                }
+            };
+            //批量删除
+            allDelete.onclick = function(){
+                var oItem = document.querySelectorAll("tbody tr");
+                if(allBtn.checked){
+                    confirm("确认要删除选中的数据吗？");
+                    for(var i=0;i<oItem.length;i++){
+                        if(oItem[i].firstElementChild.firstElementChild.checked === true){
+                            oItem[i].remove();
+                        }
+                    }
+                } else {
+                    var flagNum = false;
+                    for(var i=0;i<oItem.length;i++){
+                        if(oItem[i].firstElementChild.firstElementChild.checked === true){
+                            flagNum = true;
+                        }
+                    }
+                    if(!flagNum){
+                        alert("请选中数据！！");
+                        return;
+                    } else {
+                        if(confirm("确认要删除选中的数据吗？")){
+                            for(var i=0;i<oItem.length;i++){
+                                if(oItem[i].firstElementChild.firstElementChild.checked === true){
+                                    oItem[i].remove();
+                                }
+                            }
+                        }
+                    }
+                }
+                allBtn.checked = false;
+                againOrder();
+            };
+            //checkbox 单击事件函数
+            function checkedClick(){
+                for(var i=0;i<oItem.length;i++){
+                    oItem[i].firstElementChild.firstElementChild.onclick =function(){
+                        if(this.checked){
+                            this.checked = true;
+                            this.parentNode.parentNode.style.background = "#f50c3a";
+                        }else{
+                            this.checked = false;
+                            this.parentNode.parentNode.style.background = "";
+                        }
+                        var sum = 0;
+                        for(var j=0;j<oItem.length;j++) {
+                            if(oItem[j].firstElementChild.firstElementChild.checked){
+                                sum += 1;
+                            }
+                            if(sum == oItem.length){
+                                allBtn.checked = true;
+                            }else{
+                                allBtn.checked = false;
+                            }
+                        }
+                    };
+                }
+            }
+        /********************************** 创建元素的时候同事添加点击事件***************************************/
+            //创建元素函数
+            function createElement(self){
+                var createEle = document.createElement("tr");
+
+                if(self.parentNode.children[0].children[1].value == ""){
+                    alert("请输入姓名！！！");
+                    return;
+                }
+                if(self.parentNode.children[2].children[1].value == ""){
+                    alert("请输入正确的数字格式！！！");
+                    return;
+                }
+                str = "<td><input type=\"checkbox\"></td>\n" +
+                    "                <td>"+(oTBody.children.length+1)+"</td>\n" +
+                    "                <td>"+self.parentNode.children[0].children[1].value+"</td>\n" +
+                    "                <td>"+self.parentNode.children[1].children[1].value+"</td>\n" +
+                    "                <td>"+self.parentNode.children[2].children[1].value+"</td>\n" +
+                    "                <td>\n" +
+                    "                    <input type=\"button\" value=\"上移\" style=\"margin-left: 17px;margin-right: 3px;\">\n" +
+                    "                    <input type=\"button\" value=\"下移\" style=\"margin-left: 17px;margin-right: 3px;\">\n" +
+                    "                    <input type=\"button\" value=\"删除\" style=\"margin-left: 17px;margin-right: 3px;\">\n" +
+                    "                </td>";
+                createEle.innerHTML = str;
+                oTBody.appendChild(createEle);
+                self.parentNode.children[0].children[1].value = "";
+
+
+                var  aInp = createEle.querySelectorAll("input");
+
+                aInp[0].onclick = function(){
+
+                }
+
+                aInp[1].onclick = function(){
+                    var parent = this.parentElement.parentElement;
+                    if(parent.previousElementSibling){
+                        oTBody.insertBefore(parent,parent.previousElementSibling);
+                    } else {
+                        oTBody.appendChild(parent);
+                    }
+                }
+                aInp[2].onclick = function(){
+                    var parent = this.parentElement.parentElement;
+                    if(parent.nextElementSibling){
+                        oTBody.insertBefore(parent.nextElementSibling,parent);
+                    } else {
+                        oTBody.insertBefore(parent,oTBody.firstElementChild);
+                    }
+                }
+                aInp[3].onclick = function() {
+                    this.parentNode.parentNode.remove();
+                    againOrder();
+                }
+
+
+            }
+            //重新排序
+            function againOrder(){
+
+                var oItem = oTBody.children;
+                for(var i=0;i<oItem.length;i++){
+                    oItem[i].children[1].innerHTML = i+1;
+                    //console.log(oItem[i].children[2]);
+                }
+            }
+
+            //创建 table 的列查找函数
+            function searchTableColumn(table,num){
+                var rows = table.rows;
+                var len = rows.length;
+                var eleObj = [];
+                for(var i=0;i<len;i++){
+                    eleObj.push(rows[i].cells[num])
+                }
+                return eleObj;
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div id="big">
+    <div id="top">
+        <div><p>姓名：</p><input type="text"></div>
+        <div><p>性别：</p>
+            <select value="男" id="sex">
+                <option>男</option>
+                <option>女</option>
+            </select>
+        </div>
+        <div><p>年龄：</p><input type="number"><p style="float:left;font-size: 11px;color:gray;margin-left: 5px;">数字样式</p></div>
+        <input id="add" type="button" value="添加">
+    </div>
+
+    <div id="middle" class="center">
+        <p>请选择排序依据：</p>
+        <select value="编号" id="number">
+            <option>编号</option>
+            <option>年龄</option>
+        </select>
+        <p>请选择排序方式：</p>
+        <select value="升序"  id="age">
+            <option>降序</option>
+            <option>升序</option>
+        </select>
+        <input type="button" value="排序" id="order">
+        <input type="button" value="批量删除" id="all-delete">
+    </div>
+
+    <div id="bottom" class="center">
+        <table id="tab" border="1px">
+            <thead>
+            <tr>
+                <th width="102px">全选<input type="checkbox" id="all-selector"></th>
+                <th width="102px">编号</th>
+                <th width="102px">姓名</th>
+                <th width="102px">性别</th>
+                <th width="102px">年龄</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<!--
+border-box: IE  宽高等于盒子宽高
+content-box W3C  盒子宽高 = border + padding + content
+
+valign   上下居中
+align    左右居中
+
+//属性选择器
+
+input[type="checked"]
+
+var tBody = oTab.tBodies[0];//找tbody  是一个集合
+var tHead = oTab.tHead;//找thead
+var rows = oTab.rows;//找行 是一个集合 使用时候用中括号
+var cell = tHead.row[0].cells[0];//cells 是一个集合
+
+
+获取单元格
+
+-->
+</body>
+</html>

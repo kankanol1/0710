@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>静态网页</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        .clearfix:after{
+            content: '.';
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+        *clearfix:after{
+            *zoom: 1;
+        }
+        ul{
+            list-style: none;
+        }
+
+/****************************以上清除格式******************************/
+        #body{
+        }
+        .center{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        #top-p{
+            background-color: #55575a;
+            height: 32px;
+            font-size: 12px;
+            color: #fff;
+        }
+        #top-p ul{
+            position: relative;
+            height: 32px;
+            line-height: 32px;
+            list-style: none;
+        }
+        #top-p ul li{
+            margin-top: 0;
+            float: left;
+            height: 32px;
+            line-height: 32px;
+        }
+
+
+        #top-img{
+            overflow: hidden;
+            margin-top: 20px;
+
+        }
+        #top-ul{
+            list-style: none;
+            position: relative;
+        }
+        #top-ul li {
+            float: left;
+            margin-right: 14px;
+        }
+        #top-img-down{
+            position: relative;
+        }
+        #top-img-down img,
+        #top-img-down div,
+        #top-img-down p,
+        #top-img-down a{
+            float: left;
+        }
+
+        #top-img-down{
+
+            height: 50px;
+            line-height: 50px;
+            position: relative;
+            padding: 20px auto;
+        }
+        #top-img-down img{
+
+            height: 50px;
+            line-height: 50px;
+            margin-top: 20px;
+        }
+        #top-img-down div{
+            position: relative;
+            width: 484px;
+            height: 40px;
+            margin-top: 22px;
+            border: 3px solid #e56660;
+        }
+        #top-img-down div #search{
+            width: 418px;
+            height: 40px;
+            float: left;
+        }
+        #top-img-down div #search-btn{
+            float: left;
+            height: 40px;
+            width: 64px;
+            background-color: #e56660;
+        }
+        #top-img-down p{
+            margin-top: 22px;
+        }
+        #top-img-down a{
+            display: block;
+            margin-top: 22px;
+            margin-right: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div id="top">
+    <div id="top-p" >
+        <ul class="center">
+            <li style="font-size: 12px;color: #fff;margin-right: 430px">Hello，Welcome come to The YanShi Group!</li>
+            <li align="right">
+                <p>关于我们&nbsp;∨</p>
+                <ul >
+                    <li>Web前端</li>
+                    <li>UI设计</li>
+                    <li>数据库</li>
+                </ul>
+            </li>
+            <li style="border-right: 1px dashed #bababa;height: 12px;" align="right">
+                <p style="margin-top: 0px;padding-right: 15px;height: 32px;">集团招聘&nbsp;∨</p>
+                <ul style="height: 150px;line-height: 50px;">
+                    <li style="float: none;padding-left: 0;width: 100px"><a href="javascript:;">Web前端</a></li>
+                    <li><a href="javascript:;">UI设计</a></li>
+                    <li><a href="javascript:;">数据库</a></li>
+                </ul>
+            </li>
+            <li align="right">
+                微信关注&nbsp;∨
+                <ul>
+                    <li>Web前端</li>
+                    <li>UI设计</li>
+                    <li>数据库</li>
+                </ul>
+            </li>
+            <li align="right">
+                业务总览&nbsp;∨
+                <ul>
+                    <li>Web前端</li>
+                    <li>UI设计</li>
+                    <li>数据库</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div id="top-img" class="center">
+        <ul id="top-ul">
+            <li><img src="img/wang.jpg" alt=""></li>
+            <li><img src="img/wang.jpg" alt=""></li>
+            <li><img src="img/wang.jpg" alt=""></li>
+            <li  style="margin-right: 0"><img src="img/wang.jpg" alt=""></li>
+        </ul>
+    </div>
+    <div id="top-img-down" class="center">
+        <img src="img/aLogo.jpg" alt="">
+        <div>
+             <input type="text" name="search" id="search">
+             <input type="button" name="" id="search-btn" value="搜索">
+        </div>
+        <p>或</p>
+        <a href="javascript:;">发布需求</a>
+    </div>
+
+    <div id="nav">
+        <ul id="nav-ul">
+            <li><a href="javascript:;">首页</a></li>
+            <li><a href="javascript:;">找服务</a></li>
+            <li><a href="javascript:;">选顾问</a></li>
+            <li><a href="javascript:;">提问题</a></li>
+            <li><a href="javascript:;">赏案例</a></li>
+            <li><a href="javascript:;">阅资讯</a></li>
+        </ul>
+    </div>
+    <div id="nav-down-img"><img href="javascript:;"></div>
+    <div id="body">
+        <div id="body-content">
+            <div></div>
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <img src="" alt="">
+                        <div>
+                            <strong>工商</strong>
+                            <p>logo设计，VI设计，视频广告</p>
+                            <a href="javascript:;"></a>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
+</body>
+</html>

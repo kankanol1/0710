@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        li:target {
+            color: red;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="div">
+    <ul>
+        <li></li>
+        <li></li>
+        <li id="div2"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div id="div1">4</div>
+    <div>5</div>
+    <div>6</div>
+</div>
+<script>
+
+
+    //计算js的时候一定不要用小数计算
+    var num1 = parseInt((0.1*10 + 0.2*10 - 0.3*10)/10);
+    var num2 = parseInt(0.1 + 0.2 - 0.3);
+    var num3 = Number(0.1 + 0.2 - 0.3);
+    console.log(num1,num2,num3);
+
+</script>
+
+
+</body>
+</html>
